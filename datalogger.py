@@ -23,10 +23,10 @@ class datalogger():
                 os.makedirs(data_path)
         
         #Creating file
-        logFileName = data_path + os.sep + "RFID_data_" + str(file_name) + ".txt" 
+        logFileName = data_path + os.sep + "RFID_data_" + str(file_name) + ".csv" 
         self.logFile = open(logFileName, 'w', encoding="utf-8")
-        self.logFile.write('Frame' + '\t' + 'Time' + '\t\t\t\t\t\t' + 'RFID 0' +  '  \t' +  \
-            'RFID 1' +  '  \t' + 'RFID 2' +  '  \t' + 'RFID 3' +  '  \t' "\n")        
+        self.logFile.write('Frame' + ',' + 'Time' + ',' + 'RFID_0' +  ',' +  \
+            'RFID_1' +  ',' + 'RFID_2' +  ',' + 'RFID_3' +  ','+ 'RFID_4'+','+'RFID_5'+ "\n")        
 
     def write_to_txt(self, frame_count, message):
         """Writes a row to the txt file. This function is for use of RFID reader datalogging.
@@ -36,8 +36,8 @@ class datalogger():
         :param message: data read on RFID, i.e. the tag number
         :type message: integer
         """
-        sttime = datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')
-        self.logFile.write(str(frame_count) + '\t\t' + sttime + '\t' + str(message) + "\n")
+        sttime = datetime.now().strftime('%Y-%m-%d_%H:%M:%S.%f')
+        self.logFile.write(str(frame_count) + ',' + sttime + ',' + str(message) + "\n")
 
 
     def setdown(self):

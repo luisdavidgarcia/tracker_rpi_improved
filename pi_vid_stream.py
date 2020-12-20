@@ -14,18 +14,17 @@ import os
 import tables
 import csv
 import io
-
-from datalogger import datalogger
+import datalogger
 
 class pi_video_stream():
     def __init__(self, data_path, recorder):
-        """Constructor for :class: 'pi_video_stream' object. Creates a :class: 'PiCamera' object and loads the settings
+        """Constructor for :class:`pi_video_stream` object. Creates a :class:`PiCamera` object and loads the settings
         from 'config.ini' for camera. 
         
         :param data_path: path to and name of the folder where video(s) will be saved
         :type data_path: string
         :param recorder: recorder object; contains information of RFID readers
-        :type recorder: :class: 'recorder' object
+        :type recorder: :class:`recorder` object
         """
         # Read config file
         config = ConfigParser()
@@ -60,11 +59,6 @@ class pi_video_stream():
         self.out.release()
         self.camera.stop_preview()  
         self.fps.stop()
-        self.camera.close()
-        try:
-           self.camera.stop_recording()
-        except Exception as e:
-           print(e)
         print("[INFO] elasped time: {:.2f}".format(self.fps.elapsed()))
         print("[INFO] approx. FPS: {:.2f}".format(self.fps.fps()))
 
@@ -118,19 +112,7 @@ class pi_video_stream():
             self.rawCapture.seek(0)
 
             #Save data to log file
-            self.datalogger.write_to_txt(self.fps._numFrames, str(self.rc.reader0.data) + ',' + str(self.rc.reader1.data)\
-                +',' + str(self.rc.reader2.data) + ',' + str(self.rc.reader3.data) \
-                +',' + str(self.rc.reader4.data)\
-                + ','+str(self.rc.reader5.data)+',') 
+            self.datalogger.write_to_txt(self.fps._numFrames, str(self.rc.reader0.data) + '\t\t\t' + str(self.rc.reader1.data) + '\t\t\t'\
+                + str(self.rc.reader2.data) + '\t\t\t' + str(self.rc.reader3.data) + '\t') 
             if duration is not None and time.time() > end_time:
                 break
-        #self.setdown()
-
-    
-            
-        
-       
-
-
-        
-

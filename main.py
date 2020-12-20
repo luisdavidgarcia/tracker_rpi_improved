@@ -1,12 +1,16 @@
 import time
-from datetime import datetime
+import schedule
+from datetime import datetime, timedelta
+import datetime as dt
 import os
 import sys
 import signal
-
+from udp_socket import rpi_socket
+import RPi.GPIO as GPIO
 sys.path.append('..')
 from pi_video_stream import pi_video_stream
 from RFID_reader import RFID_reader
+from tunnel_reader import tunnel_RFID_reader
 from configparser import ConfigParser
 from threading import Thread
 import frame_counter as fc
@@ -30,9 +34,10 @@ class rpi_recorder():
 
         # Making directory
         self.data_root = config.get(cfg, 'data_root')
-        tm = datetime.now()
-        self.data_path = self.data_root + str(tm.year) + "_" + format(tm.month, '02d') + '_' + format(tm.day, '02d') + \
-            '_' + format(tm.hour, '02d') + ':' + format(tm.minute, '02d') + ':' + format(tm.second, '02d')
+        self.port=int(config.get(cfg,'port'))
+        self.ip=config.get(cfg,'ip')
+        tm = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+        self.data_path = self.data_root + tm
 
         # Object and settings for recording
         self.video = pi_video_stream(self.data_path, self)
@@ -44,13 +49,17 @@ class rpi_recorder():
         self.fps_post_process = config.get(cfg, 'fps_post_process')
 
         # Object for RFID reading
-        self.reader0 = RFID_reader('/dev/ttyUSB0', '0')
-        self.reader1 = RFID_reader('/dev/ttyUSB1', '1')
-        self.reader2 = RFID_reader('/dev/ttyUSB2', '2')
-        self.reader3 = RFID_reader('/dev/ttyUSB3', '3')
-        self.reader4 = RFID_reader('/dev/ttyUSB3', '4')
-        self.reader5 = RFID_reader('/dev/ttyUSB3', '5')
-
+        with open(self.data_path+'/text.csv',"a") as RFIDs:
+                RFIDs.write('Reader,Timestamp,RFID\n')
+        #self.reader0 = tunnel_RFID_reader('/dev/ttyUSB5',self.data_path+'/text.csv',17)
+        self.reader0 = RFID_reader('/dev/ttyUSB0', '0',self.data_path+'/text.csv')
+        self.reader1 = RFID_reader('/dev/ttyUSB1', '1',self.data_path+'/text.csv')
+        self.reader2 = RFID_reader('/dev/ttyUSB2', '2',self.data_path+'/text.csv')
+        self.reader3 = RFID_reader('/dev/ttyUSB3', '3',self.data_path+'/text.csv')
+        self.reader4 = RFID_reader('/dev/ttyUSB4', '4',self.data_path+'/text.csv')
+        self.reader5 = RFID_reader('/dev/ttyUSB5', '5',self.data_path+'/text.csv')
+        #self.reader6 = RFID_reader('/dev/ttyUSB6', '6')
+        #self.spt_socket=rpi_socket(self.ip, self.port,self.data_path+'/text.csv')
     def run(self):
         """Main function that opens threads and runs :class: 'pi_video_stream' in main thread. In each thread,
          :class:'RFID_reader' checks for RFID pickup. The pickup data is then logged to a text file 
@@ -63,8 +72,8 @@ class rpi_recorder():
         t_rfid3 = Thread(target=self.reader3.scan, daemon=True)
         t_rfid4 = Thread(target=self.reader4.scan, daemon=True)
         t_rfid5 = Thread(target=self.reader5.scan, daemon=True)
-        
-
+        #t_rfid6 = Thread(target=self.reader6.scan, daemon=True)
+        #s_rfid=Thread(target=self.spt_socket.run, daemon=True)
         # Start threads
         t_rfid0.start()
         t_rfid1.start()
@@ -72,7 +81,8 @@ class rpi_recorder():
         t_rfid3.start()
         t_rfid4.start()
         t_rfid5.start()
-
+        #s_rfid.start()
+        #t_rfid6.start()2q
         # keyboard interrupt handler, stops program once ctrl-c is pressed
         def keyboardInterruptHandler(signal, frame):
             self.setdown()
@@ -88,6 +98,8 @@ class rpi_recorder():
         Note that this method has to execute for the video and txt files to save properly.
         """
         self.video.setdown()
+        GPIO.cleanup()
+        
 
         # Displays the fps and frame counts on terminal
         #fc.get_video_frame_count(rc.data_path)
@@ -98,10 +110,27 @@ class rpi_recorder():
             self.video.post_process(self.video.fps.fps())
             print("Finished post processing at "+str(datetime.now()))
 
+#def main_func():
+#     rc = rpi_recorder()
+#     rc.run()
+#     time.sleep(30)
+#     try: 
+#        schedule.cancel(main_func)
+#     except Exception as e:
+#        print(e)
+#        schedule.every(30).seconds.do(main_func)
+
+
 
 if __name__ == "__main__":
-    rc = rpi_recorder()
-    rc.run()
-    print("Finished recording at "+str(datetime.now()))
-    rc.setdown()
-    
+     #while True:
+        #now=datetime.now()
+        #while datetime.now()-now<timedelta(seconds=30):
+        #time.sleep(10)
+        #GPIO.setmode(GPIO.BCM)
+     rc = rpi_recorder()
+     rc.run()
+        #del rc
+     print("Finished recording at "+str(datetime.now()))
+     rc.setdown()
+        #del rc    
