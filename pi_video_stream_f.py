@@ -19,7 +19,7 @@ class PiVideoStream:
         self.camera.resolution = list(map(int, config.get(cfg, 'resolution').split(', ')))
         self.data_path=data_path
         self.camera.sensor_mode = int(config.get(cfg, 'sensor_mode'))
-        self.camera.framerate = int(config.get(cfg, 'framerate'))
+        #self.camera.framerate = int(config.get(cfg, 'framerate'))
         self.camera.iso = int(config.get(cfg, 'iso'))
         self.camera.shutter_speed=30000
         self.camera.awb_mode = 'off'
@@ -41,6 +41,7 @@ class PiVideoStream:
     def update(self):
         # keep looping infinitely until the thread is stopped
         for f in self.stream:
+            #start = time.time()
             # grab the frame from the stream and clear the stream in
             # preparation for the next frame
             self.frame = f.array
@@ -52,6 +53,7 @@ class PiVideoStream:
                 self.rawCapture.close()
                 self.camera.close()
                 return
+            #time.sleep(max(0.5 / (self.camera.framerate) - (time.time() - start), 0.0))
     def read(self):
         # return the frame most recently read
         return self.frame
@@ -68,6 +70,7 @@ class PiVideoStream:
                 try:
                     # grab the frame from the threaded video stream and resize it
                     # to have a maximum width of 400 pixels
+                    #start = time.time()
                     frame = self.read()
                     #frame = imutils.resize(frame, width=400)
                     # check to see if the frame should be displayed to our screen
@@ -75,6 +78,7 @@ class PiVideoStream:
                     self.datalogger.write_to_txt(frame_count)
                     frame_count+=1
                     fps.update()
+                    #time.sleep(max(0.5 / (self.camera.framerate) - (time.time() - start), 0.0))
                 except KeyboardInterrupt:
                     break
             fps.stop()
@@ -82,24 +86,28 @@ class PiVideoStream:
             print("[INFO] approx. FPS: {:.2f}".format(fps.fps()))
             print(str(frame_count))
             # do a bit of cleanup
-            cv2.destroyAllWindows()
+            #cv2.destroyAllWindows()
             self.stop()
+            self.out.release()
             self.datalogger.setdown()
-            get_video_frame_count(self.data_path)
+            #get_video_frame_count(self.data_path)
         else:
             end_time = time.time()+ duration
             while time.time()<end_time:
+                #start = time.time()
                 frame = self.read()
                 self.out.write(frame)
                 self.datalogger.write_to_txt(frame_count)
                 frame_count+=1
                 fps.update()
+                #time.sleep(max(0.5 / (self.camera.framerate) - (time.time() - start), 0.0))
             fps.stop()
             print("[INFO] elasped time: {:.2f}".format(fps.elapsed()))
             print("[INFO] approx. FPS: {:.2f}".format(fps.fps()))
             print(str(frame_count))
             # do a bit of cleanup
-            cv2.destroyAllWindows()
+            #cv2.destroyAllWindows()
             self.stop()
+            self.out.release()
             self.datalogger.setdown()
-            get_video_frame_count(self.data_path)
+            #get_video_frame_count(self.data_path)

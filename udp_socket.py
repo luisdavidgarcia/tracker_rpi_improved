@@ -26,7 +26,7 @@ class rpi_socket():
             elif data[0]=='l':
                 with open(self.pathin,"a") as RFIDs:
                     RFIDs.write('SPT_lick'+','+str(datetime.now())+','+data+'\n')
-                    print('Tag{} is licking in the SPT_tunnel at {}}'.format(str(data[1:]),str(datetime.now().strftime("%Y-%m-%d_%H:%M:%S.%f"))))
+                    print('Tag{} is licking in the SPT_tunnel at {}'.format(str(data[1:]),str(datetime.now().strftime("%Y-%m-%d_%H:%M:%S.%f"))))
 
 
 

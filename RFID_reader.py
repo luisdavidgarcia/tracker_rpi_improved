@@ -6,7 +6,7 @@ import signal
 from datetime import datetime
 
 from RFIDTagReader.RFIDTagReader import TagReader
-import pi_video_stream
+#import pi_video_stream
 from datalogger import datalogger
 
 class RFID_reader():
