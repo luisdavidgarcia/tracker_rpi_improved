@@ -5,12 +5,12 @@ import datetime as dt
 import os
 import sys
 import signal
-from udp_socket import rpi_socket
+#from udp_socket import rpi_socket
 import RPi.GPIO as GPIO
 sys.path.append('..')
-from pi_video_stream import pi_video_stream
+from pi_video_stream_f import PiVideoStream
 from RFID_reader import RFID_reader
-from tunnel_reader import tunnel_RFID_reader
+#from tunnel_reader import tunnel_RFID_reader
 from configparser import ConfigParser
 from threading import Thread
 import frame_counter as fc
@@ -40,13 +40,12 @@ class rpi_recorder():
         self.data_path = self.data_root + tm
 
         # Object and settings for recording
-        self.video = pi_video_stream(self.data_path, self)
+        self.video = PiVideoStream(self.data_path)
         self.user_interrupt_only = config.get(cfg, 'user_interrupt_only')
         if self.user_interrupt_only == "True":
             self.record_time_sec = None        
         else:
             self.record_time_sec = int(config.get(cfg, 'record_time_sec'))
-        self.fps_post_process = config.get(cfg, 'fps_post_process')
 
         # Object for RFID reading
         with open(self.data_path+'/text.csv',"a") as RFIDs:
@@ -97,8 +96,7 @@ class rpi_recorder():
         """Shuts down the :class:'pi_video_stream' object and :class:'RFID_reader' objects. 
         Note that this method has to execute for the video and txt files to save properly.
         """
-        self.video.setdown()
-        GPIO.cleanup()
+
         
 
         # Displays the fps and frame counts on terminal
@@ -106,9 +104,6 @@ class rpi_recorder():
         #fc.get_txt_frame_count(rc.data_path)
 
         # Post process the video to match FPS if specified by user
-        if self.fps_post_process == "True":
-            self.video.post_process(self.video.fps.fps())
-            print("Finished post processing at "+str(datetime.now()))
 
 #def main_func():
 #     rc = rpi_recorder()
@@ -123,14 +118,7 @@ class rpi_recorder():
 
 
 if __name__ == "__main__":
-     #while True:
-        #now=datetime.now()
-        #while datetime.now()-now<timedelta(seconds=30):
-        #time.sleep(10)
-        #GPIO.setmode(GPIO.BCM)
      rc = rpi_recorder()
      rc.run()
-        #del rc
      print("Finished recording at "+str(datetime.now()))
-     rc.setdown()
-        #del rc    
+  

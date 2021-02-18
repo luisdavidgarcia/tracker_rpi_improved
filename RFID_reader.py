@@ -24,6 +24,8 @@ class RFID_reader():
         self.data = 0
         self.ID = ID
         self.pathin=pathin
+        with open(self.pathin,"w") as RFIDs:
+                RFIDs.write('Reader,Timestamp,RFID\n')
         #self.stop_threads = False
 
 

@@ -14,7 +14,6 @@ import os
 import tables
 import csv
 import io
-
 from datalogger import datalogger
 
 class pi_video_stream():
@@ -97,6 +96,8 @@ class pi_video_stream():
         """
         # Starting camera, FPS and preview
         self.vstream = self.camera.capture_continuous(self.rawCapture, format="bgr", use_video_port=True)
+        #print(self.camera.framerate)
+        #print(self.camera.resolution)
         self.camera.start_preview(fullscreen=False, window=(0,0,512,400))
         self.fps = FPS().start()
         self.out = cv2.VideoWriter(self.data_path + os.sep + 'raw.avi', cv2.VideoWriter_fourcc(*'DIVX'), self.camera.framerate, self.camera.resolution)
