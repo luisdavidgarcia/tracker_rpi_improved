@@ -66,13 +66,10 @@ class rpi_recorder():
          by :class: 'pi_video_stream'.
         """
         # Make threads for different objects
-        print(self.rfid)
-        print(self.nreaders)
         if self.rfid =='True':
             reader_process=["t_rfid{}=multiprocessing.Process(target=self.reader{}.scan,daemon=True)".format(i,i) for i in range(self.nreaders)]
             for i in reader_process:
                 exec(i)
-            print('passed')
             #t_rfid0 = multiprocessing.Process(target=self.reader0.scan,daemon=True)
             #t_rfid1 = multiprocessing.Process(target=self.reader1.scan,daemon=True)
             #t_rfid2 = multiprocessing.Process(target=self.reader2.scan,daemon=True)
@@ -83,7 +80,7 @@ class rpi_recorder():
         if self.spt=='True':
             s_rfid=multiprocessing.Process(target=self.spt_socket.run, daemon=True)
         # Start threads
-        if self.rfid:
+        if self.rfid =='True':
             reader_startup=["t_rfid{}.start()".format(i) for i in range(self.nreaders)]
             for i in reader_startup:
                 exec(i)
