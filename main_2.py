@@ -30,7 +30,6 @@ class rpi_recorder():
         config = ConfigParser()
         config.read('config.ini')
         cfg = 'tracker_cage_record'
-
         # Making directory
         self.data_root = config.get(cfg, 'data_root')
         self.spt=config.get(cfg,'spt')
@@ -52,12 +51,6 @@ class rpi_recorder():
             readers=["self.reader{}=RFID_reader('/dev/ttyUSB{}', '{}',self.data_path+'/text{}.csv')".format(i,i,i,i) for i in range(self.nreaders)]
             for i in readers:
                 exec(i)
-            #self.reader0 = RFID_reader('/dev/ttyUSB0', '0',self.data_path+'/text0.csv')
-            #self.reader1 = RFID_reader('/dev/ttyUSB1', '1',self.data_path+'/text1.csv')
-            #self.reader2 = RFID_reader('/dev/ttyUSB2', '2',self.data_path+'/text2.csv')
-            #self.reader3 = RFID_reader('/dev/ttyUSB3', '3',self.data_path+'/text3.csv')
-            #self.reader4 = RFID_reader('/dev/ttyUSB4', '4',self.data_path+'/text4.csv')
-            #self.reader5 = RFID_reader('/dev/ttyUSB5', '5',self.data_path+'/text5.csv')
         if self.spt== 'True':
             self.spt_socket=rpi_socket(self.ip, self.port,self.data_path+'/spt_text.csv')
     def run(self):
@@ -70,26 +63,13 @@ class rpi_recorder():
             reader_process=["t_rfid{}=multiprocessing.Process(target=self.reader{}.scan,daemon=True)".format(i,i) for i in range(self.nreaders)]
             for i in reader_process:
                 exec(i)
-            #t_rfid0 = multiprocessing.Process(target=self.reader0.scan,daemon=True)
-            #t_rfid1 = multiprocessing.Process(target=self.reader1.scan,daemon=True)
-            #t_rfid2 = multiprocessing.Process(target=self.reader2.scan,daemon=True)
-            #t_rfid3 = multiprocessing.Process(target=self.reader3.scan,daemon=True)
-            #t_rfid4 = multiprocessing.Process(target=self.reader4.scan,daemon=True)
-            #t_rfid5 = multiprocessing.Process(target=self.reader5.scan,daemon=True)
-        #t_rfid6 = Thread(target=self.reader6.scan, daemon=True)
         if self.spt=='True':
             s_rfid=multiprocessing.Process(target=self.spt_socket.run, daemon=True)
-        # Start threads
+        # Start Processes
         if self.rfid =='True':
             reader_startup=["t_rfid{}.start()".format(i) for i in range(self.nreaders)]
             for i in reader_startup:
                 exec(i)
-            #t_rfid0.start()
-            #t_rfid1.start()
-            #t_rfid2.start()
-            #t_rfid3.start()
-            #t_rfid4.start()
-            #t_rfid5.start()
         if self.spt=='True':
             s_rfid.start()
         self.video.record(self.record_time_sec)
