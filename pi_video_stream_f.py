@@ -4,6 +4,7 @@ from threading import Thread
 import cv2
 import time
 from imutils.video import FPS
+import imutils
 import time
 from configparser import ConfigParser
 from datetime import datetime
@@ -23,7 +24,7 @@ class PiVideoStream:
         self.display=config.get(cfg,'Display')
         if self.framerate != 'None':
             self.camera.framerate = int(self.framerate)
-        self.camera.iso = int(config.get(cfg, 'iso'))
+        #self.camera.iso = int(config.get(cfg, 'iso'))
         self.camera.shutter_speed=30000
         self.camera.awb_mode = 'off'
         self.camera.awb_gains = (1,1)
@@ -66,7 +67,7 @@ class PiVideoStream:
         self.stopped = True
     def record(self,duration):
         self.start()
-        #time.sleep(1)
+        time.sleep(0.2)
         fps = FPS().start()
         frame_count=0
         if duration is None:
@@ -106,6 +107,8 @@ class PiVideoStream:
                 if self.framerate != 'None':
                     start = time.time()
                 frame = self.read()
+                #frame=imutils.resize(frame,width=self.camera.resolution[0])
+                #print(type(frame))
                 self.out.write(frame)
                 if self.display == 'True':
                         cv2.imshow("Frame", frame)
@@ -120,7 +123,7 @@ class PiVideoStream:
             print("[INFO] approx. FPS: {:.2f}".format(fps.fps()))
             print(str(frame_count))
             # do a bit of cleanup
-            cv2.destroyAllWindows()
+            #cv2.destroyAllWindows()
             self.stop()
             self.out.release()
             self.datalogger.setdown()

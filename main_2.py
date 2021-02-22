@@ -54,6 +54,7 @@ class rpi_recorder():
                 exec(i)
         if self.spt== 'True':
             self.spt_socket=rpi_socket(self.ip, self.port,self.data_path+'/spt_text.csv')
+        time.sleep(1)
     def run(self):
         """Main function that opens threads and runs :class: 'pi_video_stream' in main thread. In each thread,
          :class:'RFID_reader' checks for RFID pickup. The pickup data is then logged to a text file 
