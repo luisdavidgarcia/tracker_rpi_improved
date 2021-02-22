@@ -48,7 +48,8 @@ class rpi_recorder():
             self.record_time_sec = int(config.get(cfg, 'record_time_sec'))
         # Object for RFID reading
         if self.rfid =='True':
-            readers=["self.reader{}=RFID_reader('/dev/ttyUSB{}', '{}',self.data_path+'/text{}.csv')".format(i,i,i,i) for i in range(self.nreaders)]
+            #readers=["self.reader{}=RFID_reader('/dev/ttyUSB{}', '{}',self.data_path+'/text{}.csv')".format(i,i,i,i) for i in range(self.nreaders)]
+            readers=["self.reader{}=RFID_reader('/dev/ttyUSB{}', '{}',self.data_path+'/text.csv')".format(i,i,i) for i in range(self.nreaders)]
             for i in readers:
                 exec(i)
         if self.spt== 'True':
@@ -60,7 +61,8 @@ class rpi_recorder():
         """
         # Make threads for different objects
         if self.rfid =='True':
-            reader_process=["t_rfid{}=multiprocessing.Process(target=self.reader{}.scan,daemon=True)".format(i,i) for i in range(self.nreaders)]
+            #reader_process=["t_rfid{}=multiprocessing.Process(target=self.reader{}.scan,daemon=True)".format(i,i) for i in range(self.nreaders)]
+            reader_process=["t_rfid{}=Thread(target=self.reader{}.scan,daemon=True)".format(i,i) for i in range(self.nreaders)]
             for i in reader_process:
                 exec(i)
         if self.spt=='True':

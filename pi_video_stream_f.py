@@ -37,6 +37,7 @@ class PiVideoStream:
         self.out = cv2.VideoWriter(self.data_path + '/raw.avi', cv2.VideoWriter_fourcc(*'DIVX'), self.camera.framerate, self.camera.resolution)
         self.frame = None
         self.stopped = False
+        time.sleep(1)
     def start(self):
         # start the thread to read frames from the video stream
         Thread(target=self.update, args=()).start()
@@ -65,7 +66,7 @@ class PiVideoStream:
         self.stopped = True
     def record(self,duration):
         self.start()
-        time.sleep(0.1)
+        #time.sleep(1)
         fps = FPS().start()
         frame_count=0
         if duration is None:
