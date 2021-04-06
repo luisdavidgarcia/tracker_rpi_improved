@@ -25,5 +25,5 @@ python3 main2.py
 - Any number of RFID reader modules can be used. Up to 9 readers have been tested
 # High frame and resolutions can be achieved 
 ![](performance.png)
--can be record up to 40 fpd at 960 x960 on a Raspiberry Pi 4
+- can be record up to 40 fpd at 960 x960 on a Raspiberry Pi 4
 # Full compile of analysis TBH
