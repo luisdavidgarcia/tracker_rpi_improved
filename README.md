@@ -10,5 +10,12 @@ To run the tracker cage, use
 ```
 cd NaturalMouseTracker_rpi
 
-python3 main.py
+python3 main2.py
 ```
+# Basic Concept
+![]()
+- Any camera can be used as long as there is an over headview of all mice
+- Any number of RFID reader modules can be used. Up to 9 readers have been tested
+# High frame and resolutions can be achieved 
+![]()
+# Full compile of analysis TBH
