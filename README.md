@@ -14,7 +14,7 @@ To install the setup scitpt by running
 To run the tracker cage, use 
 ```
 
-cd NaturalMouseTracker_rpi
+cd tracker_rpi
 
 python3 main2.py
 ```
