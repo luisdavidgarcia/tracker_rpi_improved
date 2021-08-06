@@ -49,7 +49,7 @@ class rpi_recorder():
         # Object for RFID reading
         if self.rfid =='True':
             #readers=["self.reader{}=RFID_reader('/dev/ttyUSB{}', '{}',self.data_path+'/text{}.csv')".format(i,i,i,i) for i in range(self.nreaders)]
-            readers=["self.reader{}=RFID_reader('/dev/ttyUSB{}', '{}',self.data_path+'/text.csv')".format(i,i,i) for i in range(self.nreaders)]
+            readers=["self.reader{}=RFID_reader('/dev/ttyUSB{}', '{}',self.data_path+'/RFID_reads.csv')".format(i,i,i) for i in range(self.nreaders)]
             for i in readers:
                 exec(i)
         if self.spt== 'True':
