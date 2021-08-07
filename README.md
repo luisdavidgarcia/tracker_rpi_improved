@@ -9,14 +9,13 @@ To install the setup scitpt by running in the cloned folder
 ```
 sudo chmod 777 setup.sh
 sudo ./setup.sh
-
 ```
 To run the tracker cage, enter the command in the cloned folder
 ```
 sudo python3 main2.py
 ```
 
-Full video tutorial on setting up the software:
+Full video tutorial on setting up the software and editing recording settings:
 
 ```
 https://youtu.be/E22OtdMjgwc
@@ -31,4 +30,4 @@ https://youtu.be/E22OtdMjgwc
 # High frame and resolutions can be achieved 
 ![](performance.png)
 - can be record up to 40 fpd at 960 x960 on a Raspiberry Pi 4
-# Full compile of analysis TBH
+
