@@ -39,7 +39,7 @@ https://www.youtube.com/watch?v=wjWZhV1v3Pk
 - RFID tag reader module developed by [Jamie Boyd](https://github.com/jamieboyd/RFIDTagReader)
 - Locations of the readers must be sparse enough to minimize electromagnetic interference (approx 12cm)
 - To identify and validate mouse 
--
+
 # FPS at Different Resolution on Pi3/4 
 ![](fps.png)
 - can be record up to 40 fps at 960 x960 on a Raspiberry Pi 4
