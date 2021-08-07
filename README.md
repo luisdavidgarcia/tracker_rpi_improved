@@ -29,5 +29,12 @@ https://youtu.be/E22OtdMjgwc
 
 # FPS at Different Resolution on Pi3/4 
 ![](fps.png)
-- can be record up to 40 fpd at 960 x960 on a Raspiberry Pi 4
+- can be record up to 40 fps at 960 x960 on a Raspiberry Pi 4
 
+# Can Record Rodents in Various Settings
+
+## Traditional Open-Field/Three Chamber
+![](open_field.PNG) | ![](!three_chamber.PNG)
+
+## Custom Home-cage Setups
+![] (home_cage_example.PNG)
