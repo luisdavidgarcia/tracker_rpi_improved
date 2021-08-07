@@ -39,7 +39,7 @@ To setup a Raspberry Pi, please refer to the following links
 - [RFID reader base details](https://www.sparkfun.com/products/9963)
 - RFID tag reader module developed by [Jamie Boyd](https://github.com/jamieboyd/RFIDTagReader)
 - Aprroximate cost for each reader is 86 CAD
-- [Tags](https://www.sparkfun.com/products/9416) cost about 6 CAD and can be reused with after cleaning with ethanol
+- [Tags](https://www.sparkfun.com/products/9416) cost about 6 CAD and can be reused after cleaning with solutions like ethanol
 
 
 # FPS at Different Resolution on Pi3/4 
