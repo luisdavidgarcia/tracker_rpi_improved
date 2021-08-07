@@ -19,8 +19,8 @@ For full video tutorial on setting up the software and editing recording setting
 
 To setup a Raspberry Pi, please refer to the following links
 ```
-https://www.tomshardware.com/reviews/raspberry-pi-set-up-how-to,6029.html
-https://www.youtube.com/watch?v=wjWZhV1v3Pk
+[Official Raaspberry Tutorial](https://www.youtube.com/watch?v=wjWZhV1v3Pk)
+[Tom's Hardware](https://www.tomshardware.com/reviews/raspberry-pi-set-up-how-to,6029.html)
 ```
 
 # Basic Concept and Essential Hardware
