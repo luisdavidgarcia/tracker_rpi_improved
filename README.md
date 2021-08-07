@@ -1,4 +1,4 @@
-# Py-based SYstemfor Chronic monitoring of rOdent Species (Raspberry Pi recording modules)
+# Py-based SYstemfor Chronic monitoring of rOdent Species (Raspberry Pi recording module)
 
 To clone the repository, run the following in terminal. The recursive tag is required for the RFIDTagReader submodule to work correctly.
 ```
@@ -29,6 +29,7 @@ To setup a Raspberry Pi, please refer to the following links
 - Any Pi compatible camera can be used as long as there is an over headview of all mice
 - Timestamp of each is written to a separate csv file
 - RFID readings and their corresponding timestamps are also written in a csv file
+- Most of the hardware can readily purchased on distributing sites such as [Amazon](https://www.amazon.ca/ref=nav_logo)
 
 ### RFID System
 - To identify and validate mouse 
