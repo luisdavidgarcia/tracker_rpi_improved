@@ -32,13 +32,17 @@ https://www.youtube.com/watch?v=wjWZhV1v3Pk
 - Any Pi compatible camera can be used as long as there is an over headview of all mice
 - Timestamp of each is written to a separate csv file
 - RFID readings and their corresponding timestamps are also written in a csv file
+
 ### RFID System
-- 5 ID-20LA RFID tag readers setup at the custome locations at the bottom of the cage
+- To identify and validate mouse 
+- ID-20LA RFID tag readers setup at the custome locations at the bottom of the cage
+- Locations of the readers must be sparse enough to minimize electromagnetic interference (approx 12cm)
 - [RFID reader details](https://www.sparkfun.com/products/11828)
 - [RFID reader base details](https://www.sparkfun.com/products/9963)
 - RFID tag reader module developed by [Jamie Boyd](https://github.com/jamieboyd/RFIDTagReader)
-- Locations of the readers must be sparse enough to minimize electromagnetic interference (approx 12cm)
-- To identify and validate mouse 
+- Aprroximate cost for each reader is 86 CAD
+- Tags cost about 6 CAD and can be in the following [link](https://www.sparkfun.com/products/9416)
+
 
 # FPS at Different Resolution on Pi3/4 
 ![](fps.png)
