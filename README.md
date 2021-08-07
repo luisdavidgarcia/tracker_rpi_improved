@@ -27,7 +27,7 @@ To setup a Raspberry Pi, please refer to the following links
 # Basic Concept and Essential Hardware
 ![](concept.png)
 - Any Pi compatible camera can be used as long as there is an over headview of all mice
-- Timestamp of each is written to a separate csv file
+- Timestamp of each frame is written to a csv file
 - RFID readings and their corresponding timestamps are also written in a csv file
 - Most of the hardware can readily purchased on distributing sites such as [Amazon](https://www.amazon.ca/ref=nav_logo)
 
