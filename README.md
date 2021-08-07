@@ -18,10 +18,10 @@ sudo python3 main2.py
 For full video tutorial on setting up the software and editing recording settings, please refer to this [link](https://www.sparkfun.com/products/9416)
 
 To setup a Raspberry Pi, please refer to the following links
-```
+
 [Official Raaspberry Tutorial](https://www.youtube.com/watch?v=wjWZhV1v3Pk)
 [Tom's Hardware](https://www.tomshardware.com/reviews/raspberry-pi-set-up-how-to,6029.html)
-```
+
 
 # Basic Concept and Essential Hardware
 ![](concept.png)
