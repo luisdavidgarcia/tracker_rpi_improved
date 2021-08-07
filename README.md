@@ -21,13 +21,13 @@ Full video tutorial on setting up the software and editing recording settings:
 https://youtu.be/E22OtdMjgwc
 ```
 
-# Basic Concept
+# Basic Concept and Essential Hardware
 ![](concept.png)
 - Any Pi compatible camera can be used as long as there is an over headview of all mice
-- Any number of RFID reader modules can be used. Up to 9 readers have been tested
-- To add/remove readers change the nReader parameter in the config.ini file
-- To disable readers set RFID to false in the config.ini file
+- Timestamp of each is written to a separate csv file
+- RFID readings and their corresponding timestamps are also written in a csv file
+
 # FPS at Different Resolution on Pi3/4 
-![](performance.png)
+![](fps.png)
 - can be record up to 40 fpd at 960 x960 on a Raspiberry Pi 4
 
