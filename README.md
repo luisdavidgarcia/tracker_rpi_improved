@@ -32,7 +32,7 @@ To setup a Raspberry Pi, please refer to the following links
 - Most of the hardware can readily purchased on distributing sites such as [Amazon](https://www.amazon.ca/ref=nav_logo)
 
 ### RFID System
-- To identify and validate mouse 
+- To identify and validate mice 
 - ID-20LA RFID tag readers setup at the custome locations at the bottom of the cage
 - Locations of the readers must be sparse enough to minimize electromagnetic interference (approx 12cm)
 - [RFID reader details](https://www.sparkfun.com/products/11828)
