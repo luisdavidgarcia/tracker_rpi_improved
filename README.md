@@ -15,7 +15,7 @@ To run the tracker cage, enter the command in the cloned folder
 sudo python3 main2.py
 ```
 
-For full video tutorial on setting up the software and editing recording settings, please refer to this [link](https://www.sparkfun.com/products/9416)
+For full video tutorial on setting up the software and editing recording settings, please refer to this [link](https://youtu.be/E22OtdMjgwc)
 
 To setup a Raspberry Pi, please refer to the following links
 
