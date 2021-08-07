@@ -34,7 +34,7 @@ https://youtu.be/E22OtdMjgwc
 # Can Record Rodents in Various Settings
 
 ## Traditional Open-Field/Three Chamber
-![](open_field2.PNG) | ![](three_chamber.PNG)
+![](open_field.PNG) | ![](three_chamber.PNG)
 
 ## Custom Home-cage Setups
 ![](home_cage_example.PNG)
