@@ -27,7 +27,7 @@ https://youtu.be/E22OtdMjgwc
 - Any number of RFID reader modules can be used. Up to 9 readers have been tested
 - To add/remove readers change the nReader parameter in the config.ini file
 - To disable readers set RFID to false in the config.ini file
-# High frame and resolutions can be achieved 
+# FPS at Different Resolution on Pi3/4 
 ![](performance.png)
 - can be record up to 40 fpd at 960 x960 on a Raspiberry Pi 4
 
