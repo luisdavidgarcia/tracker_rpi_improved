@@ -42,7 +42,7 @@ To setup a Raspberry Pi, please refer to the following links
 - [Tags](https://www.sparkfun.com/products/9416) cost about 6 CAD and can be reused after cleaning with solutions like ethanol
 
 
-# FPS at Different Resolution on Pi3/4 
+# FPS at Different Resolutions on Pi3/4 
 ![](fps.png)
 - can be record up to 40 fps at 960 x960 on a Raspiberry Pi 4
 
