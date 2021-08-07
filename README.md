@@ -56,7 +56,7 @@ To setup a Raspberry Pi, please refer to the following links
 # PSCYO Analysis 
 - Fully python based
 - Yolov4 Detection and SORT tracking
-- RFID matching methods based on Pandas
+- RFID matching methods based on Pandas framework
 - More information can be found on the following [github link](https://github.com/tf4ong/PSYCO)
 
 
