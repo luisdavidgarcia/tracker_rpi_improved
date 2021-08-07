@@ -44,7 +44,7 @@ https://www.youtube.com/watch?v=wjWZhV1v3Pk
 ![](fps.png)
 - can be record up to 40 fps at 960 x960 on a Raspiberry Pi 4
 
-# Can Record Rodents in Various Settings
+# Recording Rodents in Various Settings
 
 ## Traditional Open-Field/Three Chamber
 ![](open_field.PNG) | ![](three_chamber.PNG)
