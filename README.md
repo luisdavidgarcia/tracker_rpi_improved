@@ -21,6 +21,12 @@ Full video tutorial on setting up the software and editing recording settings:
 https://youtu.be/E22OtdMjgwc
 ```
 
+To setup a Raspberry Pi, please refer to the following links
+```
+https://www.tomshardware.com/reviews/raspberry-pi-set-up-how-to,6029.html
+https://www.youtube.com/watch?v=wjWZhV1v3Pk
+```
+
 # Basic Concept and Essential Hardware
 ![](concept.png)
 - Any Pi compatible camera can be used as long as there is an over headview of all mice
@@ -38,3 +44,12 @@ https://youtu.be/E22OtdMjgwc
 
 ## Custom Home-cage Setups
 ![](home_cage_example.PNG)
+
+# PSCYO Analysis 
+- Fully python based
+- Yolov4 Detection and SORT tracking
+- RFID matching methods based on Pandas
+- More information can be found on the following [github link](https://github.com/tf4ong/PSYCO)
+
+
+
