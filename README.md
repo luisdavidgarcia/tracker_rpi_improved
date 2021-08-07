@@ -23,7 +23,7 @@ https://youtu.be/E22OtdMjgwc
 
 # Basic Concept
 ![](setup.png)
-- Any camera can be used as long as there is an over headview of all mice
+- Any Pi compatible camera can be used as long as there is an over headview of all mice
 - Any number of RFID reader modules can be used. Up to 9 readers have been tested
 - To add/remove readers change the nReader parameter in the config.ini file
 - To disable readers set RFID to false in the config.ini file
