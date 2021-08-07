@@ -1,22 +1,25 @@
-# Natural Mouse Tracker (Raspberry Pi recording modules)
+# Py-based SYstemfor Chronic monitoring of rOdent Species (Raspberry Pi recording modules)
 
 To clone the repository, run the following in terminal. The recursive tag is required for the RFIDTagReader submodule to work correctly.
 ```
 git clone --recursive https://github.com/ubcbraincircuits/NaturalMouseTracker_rpi
 ```
-To install the setup scitpt by running 
+To install the setup scitpt by running in the cloned folder
 
 ```
-
-./ setup.sh
+sudo chmod 777 setup.sh
+sudo ./setup.sh
 
 ```
-To run the tracker cage, use 
+To run the tracker cage, enter the command in the cloned folder
+```
+sudo python3 main2.py
 ```
 
-cd tracker_rpi
+Full video tutorial on setting up the software:
 
-python3 main2.py
+```
+https://youtu.be/E22OtdMjgwc
 ```
 
 # Basic Concept
