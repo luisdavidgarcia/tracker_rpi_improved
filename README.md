@@ -61,6 +61,6 @@ To setup a Raspberry Pi, please refer to the following links
 - More information can be found on the following [github link](https://github.com/tf4ong/PSYCO)
 - To ensure efficient processing speeds in the offline analysis, it is recommended that each recording do not exceede 12 hours.
 - If longer recordings are needed, a simple restart will be best
-
+- Sample video can be found at [Youtube](https://youtube.com/playlist?list=PLmcjDqLt_Xk6AAlll3ztvgNI9P3yQxPc2)
 
 
