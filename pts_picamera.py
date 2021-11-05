@@ -16,7 +16,7 @@ class PtsOutput(object):
         self.pts_output = io.open(pts_filename, 'w')
         self.start_time = None
         self.frame_count = 0
-        self.pts_output.write('# frame, timestamp\n')
+        self.pts_output.write('# frame, tdiff, timestamp\n')
 
     def write(self, buf):
         self.video_output.write(buf)
@@ -24,6 +24,8 @@ class PtsOutput(object):
             if self.start_time is None:
                 self.start_time = self.camera.frame.timestamp
             self.pts_output.write('%f\n' % ((self.camera.frame.timestamp - self.start_time) / 1000.0))
+            self.pts_output.write('%f\n' % ((self.camera.frame.timestamp - self.start_time) / 1000.0))
+            self.pts_output.write(f'{self.frame_count},{((self.camera.frame.timestamp - self.start_time) / 1000.0)},{time()}\n')
             #self.pts_output.write(f'{self.frame_count},{self.camera.frame.timestamp}\n')
             self.frame_count +=1
     
@@ -36,13 +38,12 @@ class PtsOutput(object):
         self.pts_output.close()	
 
 '''
-slight addition to picamera library for path saves and timestamps
+class to setup picamera and save timestamps of frames
 '''
 
 class pts_picam():
-    def __init__(self,camera_settings,pi_settings):
-        self.pi_settings = pi_settings
-        self.camera_settings = camera_settings
+    def __init__(self,camera_settings):
+        self.settings = camera_settings
         data_path=pi_settings['data_path']
         self.data_path = data_path + tm + '/'
 
@@ -50,7 +51,7 @@ class pts_picam():
         self.camera = PiCamera()
         self.camera.resolution = self.settings['resolution']
         self.camera.shutter_speed= self.settings['shutter_speed']
-        self.camera.framerate = self.settings['shutter_speed']
+        self.camera.framerate = self.settings['framerate']
         self.camera.awb_mode = self.settings['awb_mode']
         self.camera.iso = self.settings['iso']
         self.camera.sensor_mode = self.settings['sensor_mode']
@@ -63,7 +64,7 @@ class pts_picam():
         pts_path= self.data_path+'pts.csv'
         file_path = self.data_path+'raw.h264'
         self.camera.start_recording(PtsOutput(self.camera, file_path, pts_path), format='h264' ,level='4.2')
-        if self.camera_settings['Display'] == 'True':
+        if self.settings['Display'] == 'True':
             self.camera.start_preview(fullscreen=False, \
                 window=((10, 10,self.settings['resolution'][0] , self.settings['resolution'][0])))
 
