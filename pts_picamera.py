@@ -39,9 +39,8 @@ class PtsOutput(object):
 slight addition to picamera library for path saves and timestamps
 '''
 
-class pts_picam(PiCamera):
+class pts_picam():
     def __init__(self,camera_settings,pi_settings):
-        super().__init__()
         self.pi_settings = pi_settings
         self.camera_settings = camera_settings
         data_path=pi_settings['data_path']
@@ -62,16 +61,11 @@ class pts_picam(PiCamera):
 
     def record(self):
         pts_path= self.data_path+'pts.csv'
-        if self.pi_settings['camera'] == 'behavior':
-            file_path = self.data_path+'raw.h264'
-            camera.start_recording(PtsOutput(self.camera, file_path, pts_path), format='h264' ,level='4.2')
-            if self.camera_settings['Display'] == 'True':
-                camera.start_preview(fullscreen=False, window=((10, 10, 512, 512)))
-        elif self.pi_settings['camera'] == 'brain':
-            file_path = self.data_path+'raw.raw'
-            camera.start_recording(PtsOutput(self.camera, file_path, pts_path), format='rgb')
-            if self.camera_settings['Display'] == 'True':
-                camera.start_preview(fullscreen=False, window=((10, 10, 512, 512)))
+        file_path = self.data_path+'raw.h264'
+        self.camera.start_recording(PtsOutput(self.camera, file_path, pts_path), format='h264' ,level='4.2')
+        if self.camera_settings['Display'] == 'True':
+            self.camera.start_preview(fullscreen=False, \
+                window=((10, 10,self.settings['resolution'][0] , self.settings['resolution'][0])))
 
 
 
