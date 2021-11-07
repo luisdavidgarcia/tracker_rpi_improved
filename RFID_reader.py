@@ -1,7 +1,7 @@
 from smbus import SMBus
 import os
 import sys
-import time
+from time import time, sleep
 import signal
 from datetime import datetime
 
@@ -11,8 +11,8 @@ from datalogger import datalogger
 
 class RFID_reader():
     def __init__(self, pin, ID,pathin):
-        """Constructor for a USB RFID reader-based RFID module.
-        
+        """
+        Constructor for a USB RFID reader-based RFID module.
         :param pin: RFID port number, usually a USB port
         :type pin: string
         :param ID: label to the RFID
@@ -25,7 +25,7 @@ class RFID_reader():
         self.ID = ID
         self.pathin=pathin
         with open(self.pathin,"w") as RFIDs:
-                RFIDs.write('Reader,Timestamp,RFID\n')
+                RFIDs.write('Reader,datetime,timestamp,RFID\n')
         #self.stop_threads = False
 
 
@@ -46,12 +46,12 @@ class RFID_reader():
                     print("got data on reader "+ str(self.ID))
                     print("added tag " + str(self.data) + " at time " + str(datetime.now().strftime('%Y-%m-%d_%H:%M:%S.%f')))
                     with open(self.pathin,"a") as RFIDs:
-                        RFIDs.write(str(self.ID)+','+str(datetime.now())+','+str(self.data)+'\n')
-                    time.sleep(0.1)
+                        RFIDs.write(str(self.ID)+','+str(datetime.now())+','+str(time())+','+str(self.data)+'\n')
+                    sleep(0.1)
             except Exception as e:
                 print('Tag Not read at reader '+ str(self.ID))
                 self.data='None'
-                time.sleep(0.1)
+                sleep(0.1)
 
 '''
 Testing code

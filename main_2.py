@@ -6,6 +6,7 @@ from settings_loader import camera_settings, pi_settings
 from pts_picamera import pts_picam
 from threading import Thread, current_thread
 import multiprocessing
+import os
 
 
 
@@ -24,12 +25,25 @@ class rpi_recorder():
         self.camera_settings = camera_settings('config.ini')
     
     def setup(self):
-        #setup camera
-        self.camera = pts_picam(self.camera_settings)
-        # Making directory
-        tm = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+        tm = datetime.now().strftime('%Y-%m-%d_%H-%M-%S') 
         self.data_path = self.pi_settings['data_path'] + '/'+ tm
+        os.mkdir(self.data_path) 
+        #setup camera
+        self.camera = pts_picam(self.camera_settings,self.pi_settings)
+        self.camera.setup()
+        # Making directory
+      
         # thread setup for RFID reading
+
+        if self.pi_settings['spt']:
+            self.spt_socket=rpi_socket(self.pi_settings['ip'], self.pi_settings['port'],self.data_path+'/spt_text.csv')
+
+    def run(self):
+        """Main function that opens threads and runs :class: 'pi_video_stream' in main thread. In each thread,
+         :class:'RFID_reader' checks for RFID pickup. The pickup data is then logged to a text file 
+         by :class: 'pi_video_stream'.
+        """
+        # start threads and multiprocess
         if self.pi_settings['rfid']:
             #readers=["self.reader{}=RFID_reader('/dev/ttyUSB{}', '{}',self.data_path+'/text{}.csv')".format(i,i,i,i) for i in range(self.nreaders)]
             readers=["self.reader{}=RFID_reader('/dev/ttyUSB{}', '{}',self.data_path+'/RFID_reads.csv')".format(i,i,i)\
@@ -41,30 +55,22 @@ class rpi_recorder():
             reader_process=["t_rfid{}=Thread(target=self.reader{}.scan,daemon=True)".format(i,i) \
                 for i in range(self.pi_settings['nreaders'])]
             for i in reader_process:
-                exec(i)
-        if self.pi_settings['spt']:
-            self.spt_socket=rpi_socket(self.pi_settings['ip'], self.pi_settings['port'],self.data_path+'/spt_text.csv')
-
-    def run(self):
-        """Main function that opens threads and runs :class: 'pi_video_stream' in main thread. In each thread,
-         :class:'RFID_reader' checks for RFID pickup. The pickup data is then logged to a text file 
-         by :class: 'pi_video_stream'.
-        """
-        # start threads and multiprocess 
-        if self.spt=='True':
+                exec(i) 
+        if self.pi_settings['rfid']=='True':
             s_rfid=multiprocessing.Process(target=self.spt_socket.run, daemon=True)
         # Start Processes
         if self.pi_settings['rfid']:
             reader_startup=["t_rfid{}.start()".format(i) for i in range(self.pi_settings['nreaders'])]
             for i in reader_startup:
                 exec(i)
-        if self.spt=='True':
+        if self.pi_settings['spt']:
             s_rfid.start()
         self.camera.record()
         if self.pi_settings['user_interrupt_only']:
+            start_time = time()
             while True:
                 try:
-                    sleep(0.2)
+                    sleep(0.0000001)
                 except KeyboardInterrupt:
                     self.camera.stop_recording()
         else:
@@ -76,12 +82,15 @@ class rpi_recorder():
                     current_time = time()
                 except KeyboardInterrupt:
                     break
-            self.camera.stop_recording()  
-            
+            self.camera.camera.stop_recording()
+        dur = time() - start_time  
+        print(f' Recorded for {dur} seconds ')
+        print(f' total of  {self.camera.camera.frame_count} frames recorded')
         print("Finished recording at "+str(datetime.now()))
 
 
 if __name__ == "__main__":
      rc = rpi_recorder()
+     rc.setup()
      rc.run()
      print("Finished recording at "+str(datetime.now()))

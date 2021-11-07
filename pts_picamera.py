@@ -2,7 +2,7 @@ import io
 from picamera import PiCamera
 import time
 from time import time, sleep
-
+from datetime import datetime, timedelta
 
 '''
 post:https://forums.raspberrypi.com/viewtopic.php?t=106930
@@ -16,16 +16,16 @@ class PtsOutput(object):
         self.pts_output = io.open(pts_filename, 'w')
         self.start_time = None
         self.frame_count = 0
-        self.pts_output.write('# frame, tdiff, timestamp\n')
+        self.pts_output.write('frame,timestamp\n')
 
     def write(self, buf):
         self.video_output.write(buf)
         if self.camera.frame.complete and self.camera.frame.timestamp:
             if self.start_time is None:
                 self.start_time = self.camera.frame.timestamp
-            self.pts_output.write('%f\n' % ((self.camera.frame.timestamp - self.start_time) / 1000.0))
-            self.pts_output.write('%f\n' % ((self.camera.frame.timestamp - self.start_time) / 1000.0))
-            self.pts_output.write(f'{self.frame_count},{((self.camera.frame.timestamp - self.start_time) / 1000.0)},{time()}\n')
+            #self.pts_output.write('%f\n' % ((self.camera.frame.timestamp - self.start_time) / 1000.0))
+            #self.pts_output.write('%f\n' % ((self.camera.frame.timestamp - self.start_time) / 1000.0))
+            self.pts_output.write(f'{self.frame_count},{time()}\n')
             #self.pts_output.write(f'{self.frame_count},{self.camera.frame.timestamp}\n')
             self.frame_count +=1
     
@@ -42,9 +42,10 @@ class to setup picamera and save timestamps of frames
 '''
 
 class pts_picam():
-    def __init__(self,camera_settings):
+    def __init__(self,camera_settings,pi_settings):
         self.settings = camera_settings
         data_path=pi_settings['data_path']
+        tm = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
         self.data_path = data_path + tm + '/'
 
     def setup(self):
@@ -61,10 +62,10 @@ class pts_picam():
         self.camera.hflip = self.settings['horizontal_flip'] 
 
     def record(self):
-        pts_path= self.data_path+'pts.csv'
+        pts_path= self.data_path+'timestamp.csv'
         file_path = self.data_path+'raw.h264'
         self.camera.start_recording(PtsOutput(self.camera, file_path, pts_path), format='h264' ,level='4.2')
-        if self.settings['Display'] == 'True':
+        if self.settings['Display']:
             self.camera.start_preview(fullscreen=False, \
                 window=((10, 10,self.settings['resolution'][0] , self.settings['resolution'][0])))
 
