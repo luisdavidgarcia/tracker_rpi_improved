@@ -24,7 +24,7 @@ class RFID_reader():
         self.ID = ID
         self.pathin=pathin
         with open(self.pathin,"w") as RFIDs:
-                RFIDs.write('Reader,timestamp,RFID\n')
+                RFIDs.write('Reader,Timestamp,RFID\n')
         #self.stop_threads = False
 
 
@@ -46,7 +46,7 @@ class RFID_reader():
                     print("added tag " + str(self.data) + " at time " + str(datetime.now().strftime('%Y-%m-%d_%H:%M:%S.%f')))
                     with open(self.pathin,"a") as RFIDs:
                         RFIDs.write(str(self.ID)+','+str(time())+','+str(self.data)+'\n')
-                    sleep(0.1)
+                    sleep(0.02)
             except Exception as e:
                 print('Tag Not read at reader '+ str(self.ID))
                 self.data='None'

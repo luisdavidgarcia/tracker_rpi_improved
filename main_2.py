@@ -70,7 +70,7 @@ class rpi_recorder():
             start_time = time()
             while True:
                 try:
-                    sleep(0.0000001)
+                    sleep(0.0001)
                 except KeyboardInterrupt:
                     self.camera.stop_recording()
         else:

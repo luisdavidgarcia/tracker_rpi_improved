@@ -1,6 +1,7 @@
 import io
 from picamera import PiCamera
 import time
+import os
 from time import time, sleep
 from datetime import datetime, timedelta
 
@@ -16,17 +17,13 @@ class PtsOutput(object):
         self.pts_output = io.open(pts_filename, 'w')
         self.start_time = None
         self.frame_count = 0
-        self.pts_output.write('frame,timestamp\n')
+        self.pts_output.write(f'StartTime: {time()}\n')
+        self.pts_output.write('frame,Timestamp\n') # reference start timestamp
 
     def write(self, buf):
         self.video_output.write(buf)
         if self.camera.frame.complete and self.camera.frame.timestamp:
-            if self.start_time is None:
-                self.start_time = self.camera.frame.timestamp
-            #self.pts_output.write('%f\n' % ((self.camera.frame.timestamp - self.start_time) / 1000.0))
-            #self.pts_output.write('%f\n' % ((self.camera.frame.timestamp - self.start_time) / 1000.0))
-            self.pts_output.write(f'{self.frame_count},{time()}\n')
-            #self.pts_output.write(f'{self.frame_count},{self.camera.frame.timestamp}\n')
+            self.pts_output.write(f'{self.frame_count},{self.camera.frame.timestamp}\n') # get stc timestamp, more accurate 
             self.frame_count +=1
     
     def flush(self):	
@@ -38,43 +35,48 @@ class PtsOutput(object):
         self.pts_output.close()	
 
 '''
-class to setup picamera and save timestamps of frames
+slight addition to picamera library for path saves and timestamps
 '''
 
 class pts_picam():
     def __init__(self,camera_settings,pi_settings):
-        self.settings = camera_settings
+        self.pi_settings = pi_settings
+        self.camera_settings = camera_settings
         data_path=pi_settings['data_path']
         tm = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
         self.data_path = data_path + tm + '/'
 
     def setup(self):
         self.camera = PiCamera()
-        self.camera.resolution = self.settings['resolution']
-        self.camera.shutter_speed= self.settings['shutter_speed']
-        self.camera.framerate = self.settings['framerate']
-        self.camera.awb_mode = self.settings['awb_mode']
-        self.camera.iso = self.settings['iso']
-        self.camera.sensor_mode = self.settings['sensor_mode']
-        self.camera.awb_gains = self.settings['awb_gains']
-        self.camera.exposure_mode = self.settings['exposure_mode']
-        self.camera.vflip = self.settings['vertical_flip']
-        self.camera.hflip = self.settings['horizontal_flip'] 
+        self.camera.resolution = self.camera_settings['resolution']
+        #self.camera.shutter_speed= self.camera_settings['shutter_speed']
+        self.camera.framerate = self.camera_settings['framerate']
+        #self.camera.awb_mode = self.camera_settings['awb_mode']
+        self.camera.iso = self.camera_settings['iso']
+        self.camera.sensor_mode = self.camera_settings['sensor_mode']
+        #self.camera.awb_gains = self.camera_settings['awb_gains']
+        #self.camera.exposure_mode = self.camera_settings['exposure_mode']
+        self.camera.vflip = self.camera_settings['vertical_flip']
+        self.camera.hflip = self.camera_settings['horizontal_flip'] 
 
     def record(self):
-        pts_path= self.data_path+'timestamp.csv'
-        file_path = self.data_path+'raw.h264'
+        pts_path= self.data_path+'timestamps.csv'
+        file_path = self.data_path+'behavior.h264'
+        print(file_path)
         self.camera.start_recording(PtsOutput(self.camera, file_path, pts_path), format='h264' ,level='4.2')
-        if self.settings['Display']:
+        if self.camera_settings['Display'] == 'True':
             self.camera.start_preview(fullscreen=False, \
-                window=((10, 10,self.settings['resolution'][0] , self.settings['resolution'][0])))
+                window=((10, 10, 256, 256)))
 
-
+    def stop_record(self):
+        if self.camera_settings['Display'] == 'True':
+            self.camera.stop_preview()
+        self.camera.stop_recording()
 
 '''
 #demo code
 camera = PiCamera()
-camera.resolution = (640,480)
+camera.resolution = (960,960)
 #c
 camera.framerate = 90
 #camera.awb_mode = 'off'
