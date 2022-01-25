@@ -49,15 +49,23 @@ class pts_picam():
     def setup(self):
         self.camera = PiCamera()
         self.camera.resolution = self.camera_settings['resolution']
-        #self.camera.shutter_speed= self.camera_settings['shutter_speed']
+        self.camera.shutter_speed= self.camera_settings['shutter_speed']
         self.camera.framerate = self.camera_settings['framerate']
-        #self.camera.awb_mode = self.camera_settings['awb_mode']
+        self.camera.awb_mode = self.camera_settings['awb_mode']
         self.camera.iso = self.camera_settings['iso']
         self.camera.sensor_mode = self.camera_settings['sensor_mode']
-        #self.camera.awb_gains = self.camera_settings['awb_gains']
-        #self.camera.exposure_mode = self.camera_settings['exposure_mode']
+        self.camera.awb_gains = self.camera_settings['awb_gains']
+        self.camera.exposure_mode = self.camera_settings['exposure_mode']
         self.camera.vflip = self.camera_settings['vertical_flip']
-        self.camera.hflip = self.camera_settings['horizontal_flip'] 
+        self.camera.hflip = self.camera_settings['horizontal_flip']
+        sleep(0.2)
+        print("FINAL Analog gains:  ", float(self.camera.analog_gain))
+        print("FINAL Digital gains: ", float(self.camera.digital_gain))
+        print("FINAL Shutter speed: ", self.camera.shutter_speed)
+        print("FINAL ISO: ",self.camera.iso)
+        print("FINAL Auto White Balance Gains: ",self.camera.awb_gains)
+        print("Exposure Mode: ", self.camera.exposure_mode)
+        print("Auto White Balance Mode: ",self.camera.awb_mode) 
 
     def record(self):
         pts_path= self.data_path+'timestamps.csv'
