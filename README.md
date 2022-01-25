@@ -54,7 +54,7 @@ To setup a Raspberry Pi, please refer to the following links
 ## Custom Home-cage Setups
 ![](home_cage_example.PNG)
 
-# PSCYO Analysis (look forward to our future publication)
+# PRT Analysis Analysis
 - Fully python based
 - Yolov4 Detection and SORT tracking
 - RFID matching methods based on Pandas framework
