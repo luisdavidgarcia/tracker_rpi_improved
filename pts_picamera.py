@@ -51,6 +51,7 @@ class pts_picam():
         self.camera.resolution = self.camera_settings['resolution']
         self.camera.shutter_speed= self.camera_settings['shutter_speed']
         self.camera.framerate = self.camera_settings['framerate']
+        sleep(0.2)
         self.camera.awb_mode = self.camera_settings['awb_mode']
         self.camera.iso = self.camera_settings['iso']
         self.camera.sensor_mode = self.camera_settings['sensor_mode']
@@ -72,7 +73,7 @@ class pts_picam():
         file_path = self.data_path+'behavior.h264'
         print(file_path)
         self.camera.start_recording(PtsOutput(self.camera, file_path, pts_path), format='h264' ,level='4.2')
-        if self.camera_settings['Display'] == 'True':
+        if self.camera_settings['Display']:
             self.camera.start_preview(fullscreen=False, \
                 window=((10, 10, 256, 256)))
 
@@ -80,6 +81,7 @@ class pts_picam():
         if self.camera_settings['Display'] == 'True':
             self.camera.stop_preview()
         self.camera.stop_recording()
+        self.camera.close()
 
 '''
 #demo code

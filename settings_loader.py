@@ -11,7 +11,7 @@ def camera_settings(path):
     config=config_loader(path)
     settings['framerate'] = int(config.get(cfg,'framerate'))
     settings['resolution'] = list(map(int, config.get(cfg, 'resolution').split(', ')))
-    settings['shutter_speed'] = round(1/settings['framerate']*10**6)
+    settings['shutter_speed'] = int(config.get(cfg,'shutter_speed'))
     settings['awb_mode'] = str(config.get(cfg, 'awb_mode'))
     settings['exposure_mode'] = str(config.get(cfg, 'exposure_mode'))
     settings['sensor_mode'] = int(config.get(cfg, 'sensor_mode'))
