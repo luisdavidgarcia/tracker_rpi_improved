@@ -85,7 +85,6 @@ class rpi_recorder():
             self.camera.camera.stop_recording()
         dur = time() - start_time  
         print(f' Recorded for {dur} seconds ')
-        print(f' total of  {self.camera.camera.frame_count} frames recorded')
         print("Finished recording at "+str(datetime.now()))
 
 
