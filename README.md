@@ -1,4 +1,4 @@
-# Py-based SYstemfor Chronic monitoring of rOdent Species (Raspberry Pi recording module)
+#Online Data Collection Module for PyMouseTracks (Raspberry Pi recording module)
 
 To clone the repository, run the following in terminal. The recursive tag is required for the RFIDTagReader submodule to work correctly.
 ```
@@ -63,4 +63,5 @@ To setup a Raspberry Pi, please refer to the following links
 - If longer recordings are needed, a simple restart will be best
 - Sample video can be found at [Youtube](https://youtube.com/playlist?list=PLmcjDqLt_Xk6AAlll3ztvgNI9P3yQxPc2)
 
+Simple Open Field Build [tutorial](https://youtu.be/2uP5MmRD7ns) 
 
