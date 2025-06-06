@@ -1,10 +1,8 @@
 from time import time, sleep
-from datetime import datetime, timedelta
+from datetime import datetime
 from udp_socket import rpi_socket
-from RFID_reader import RFID_reader
 from settings_loader import camera_settings, pi_settings
 from pts_picamera import pts_picam
-from threading import Thread, current_thread
 import multiprocessing
 import os
 
@@ -45,13 +43,11 @@ class rpi_recorder():
         """
         # start threads and multiprocess
         if self.pi_settings['rfid']:
-            #readers=["self.reader{}=RFID_reader('/dev/ttyUSB{}', '{}',self.data_path+'/text{}.csv')".format(i,i,i,i) for i in range(self.nreaders)]
             readers=["self.reader{}=RFID_reader('/dev/ttyUSB{}', '{}',self.data_path+'/RFID_reads.csv')".format(i,i,i)\
                  for i in range(self.pi_settings['nreaders'])]
             for i in readers:
                 exec(i)
         if self.pi_settings['rfid']:
-            #reader_process=["t_rfid{}=multiprocessing.Process(target=self.reader{}.scan,daemon=True)".format(i,i) for i in range(self.nreaders)]
             reader_process=["t_rfid{}=Thread(target=self.reader{}.scan,daemon=True)".format(i,i) \
                 for i in range(self.pi_settings['nreaders'])]
             for i in reader_process:

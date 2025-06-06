@@ -1,7 +1,6 @@
 import sys
 sys.path.append('..')
 import os
-import time
 from datetime import datetime
 
 #import pi_video_stream

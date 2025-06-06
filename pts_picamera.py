@@ -1,9 +1,8 @@
 import io
 from picamera import PiCamera
 import time
-import os
 from time import time, sleep
-from datetime import datetime, timedelta
+from datetime import datetime
 
 '''
 post:https://forums.raspberrypi.com/viewtopic.php?t=106930
