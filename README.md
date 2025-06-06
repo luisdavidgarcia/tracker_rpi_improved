@@ -1,25 +1,30 @@
 #Online Data Collection Module for PyMouseTracks (Raspberry Pi recording module)
 
+# NOTE: I noticed there were issues with the original setup of the project, so 
+I have updated the setup script to now create a python 
+virtual enviroment and install all the dependencies there from 
+a `requirements.txt` file.
+
 To clone the repository, run the following in terminal. The recursive tag is required for the RFIDTagReader submodule to work correctly.
 ```
 git clone --recursive https://github.com/tf4ong/tracker_rpi.git
 ```
-To install the setup scitpt by running in the cloned folder
+To install the setup script by running in the cloned folder
 
 ```
-sudo chmod 777 setup.sh
-sudo ./setup.sh
+chmod 777 setup.sh
+./setup.sh
 ```
 To run the tracker cage, enter the command in the cloned folder
 ```
-sudo python3 main2.py
+python3 main2.py
 ```
 
 For full video tutorial on setting up the software and editing recording settings, please refer to this [link](https://youtu.be/E22OtdMjgwc)
 
 To setup a Raspberry Pi, please refer to the following links
 
-[Official Raaspberry Tutorial](https://www.youtube.com/watch?v=wjWZhV1v3Pk)
+[Official Raspberry Pi Tutorial](https://www.youtube.com/watch?v=wjWZhV1v3Pk)
 
 [Tom's Hardware](https://www.tomshardware.com/reviews/raspberry-pi-set-up-how-to,6029.html)
 
