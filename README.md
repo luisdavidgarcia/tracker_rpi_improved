@@ -1,4 +1,4 @@
-#Online Data Collection Module for PyMouseTracks (Raspberry Pi recording module)
+# Online Data Collection Module for PyMouseTracks (Raspberry Pi recording module)
 
 # NOTE: I noticed there were issues with the original setup of the project, so 
 I have updated the setup script to now create a python 
