@@ -1,0 +1,6 @@
+numpy
+schedule
+imutils
+wiringpi
+tables
+opencv-python==4.1.0.25
